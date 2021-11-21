@@ -1,0 +1,25 @@
+//downloading from canvas
+https://stackoverflow.com/questions/8126623/downloading-canvas-element-to-an-image
+
+var download = function(){
+  var link = document.createElement('a');
+  link.download = 'filename.png';
+  link.href = document.getElementById('canvas').toDataURL()
+  link.click();
+}
+//for gifs
+https://stackoverflow.com/questions/48234696/how-to-put-a-gif-with-canvas/48348567
+
+//canvas download as png
+https://stackoverflow.com/questions/12796513/html5-canvas-to-png-file
+
+function dlCanvas() {
+    var dt = canvas.toDataURL('image/png');
+    this.href = dt;
+};
+dl.addEventListener('click', dlCanvas, false);
+
+//multiple folders
+
+//for folder inputs
+https://codepen.io/monjer/pen/JKRLzM
