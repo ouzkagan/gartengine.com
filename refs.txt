@@ -26,3 +26,6 @@ https://codepen.io/monjer/pen/JKRLzM
 
 //draw images on canvas 
 https://educity.app/web-development/how-to-upload-and-draw-an-image-on-html-canvas
+
+//download canvas files as zip
+https://github.com/Stuk/jszip/issues/404
