@@ -1,9 +1,10 @@
+let generationNumber = 5
 let allFiles = []
 let directories = [];
 let directoryCounts = {}
 let directoryList = {}
 let order = ['background', 'ball', 'eye color', 'iris', 'top lid', 'bottom lid', 'shine'] //use directories for now ** later it will be user decided
-
+let downloadQuery = []
 var inps = document.querySelectorAll("input");
 [].forEach.call(inps, function (iptEl) {
     iptEl.onchange = function (e) {
@@ -24,32 +25,45 @@ var inps = document.querySelectorAll("input");
 
             }
         }
-        console.log(directoryList)
+        // console.log(directoryList)
 
         ggenerator()
     };
 });
 //imageFiles: bottom to top
 function putImagesToCanvas(imageFiles) {
+    var myCanvas = document.getElementById("myCanvas"); // Creates a canvas object
+    var myContext = myCanvas.getContext("2d"); // Creates a contect object
+    myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
     for (let i = 0; i < imageFiles.length; i++) {
         var reader = new FileReader();
-        reader.readAsDataURL(imageFiles[i]);
+
+        if (imageFiles[i]) {
+            console.log(imageFiles[i])
+            reader.readAsDataURL(imageFiles[i]);
+        }
+        else { return }
+        // reader.readAsDataURL(imageFiles[i]);
         reader.onloadend = function (e) {
             var myImage = new Image(); // Creates image object
             // console.log( e.target.result)
             myImage.src = e.target.result; // Assigns converted image to image object
             myImage.onload = function (ev) {
-                var myCanvas = document.getElementById("myCanvas"); // Creates a canvas object
-                var myContext = myCanvas.getContext("2d"); // Creates a contect object
                 if (i == 0) {
                     myCanvas.width = myImage.width; // Assigns image's width to canvas
                     myCanvas.height = myImage.height; // Assigns image's height to canvas
                 }
+                console.log(imageFiles[i].name)
                 myContext.drawImage(myImage, 0, 0); // Draws the image on canvas
-                let imgData = myCanvas.toDataURL("image/png", 0.75); // Assigns image base64 string in jpeg format to a variable
+                if(i === imageFiles.length - 1) {
+                    let imgData = myCanvas.toDataURL("image/png"); // Assigns image base64 string in PNG format to a variable
+                    console.log(imgData)
+                    downloadQuery.push(imgData)
+                }
             };
         };
     }
+
 }
 
 //return combinations()
@@ -95,43 +109,69 @@ function allPossibleCombinations(items, isCombination = false) {
 
 //   console.log(allPossibleCombinations(a));
 //   console.log(allPossibleCombinations(a).length);
+function multiDimensionalUnique(arr) {
+    var uniques = [];
+    var itemsFound = {};
+    for (var i = 0, l = arr.length; i < l; i++) {
+        var stringified = JSON.stringify(arr[i]);
+        if (itemsFound[stringified]) { continue; }
+        uniques.push(arr[i]);
+        itemsFound[stringified] = true;
+    }
+    return uniques;
+}
 
 //generator: get combinations numbers. put files in array. call put images
 function ggenerator() {
     // create 2xdimensional array
-    var a = [
-        [1, 2, 3, 4],
-        [1, 2],
-        [6, 7, 8, 9, 10],
-    ]
     let numbers = [
-        // [...Array.from(Array(directoryCounts[directories[0]]).keys())], //directoryCounts[directories[0]] //Array.from(Array(directoryCounts[directories[0]]).keys()) //
     ]
-    console.log(Object.keys(directoryCounts))
     for (let i = 0; i < Object.keys(directoryCounts).length; i++) {
         numbers.push([...Array.from(Array(directoryCounts[directories[i]]).keys())])
     }
-    // console.log(numbers)
-    console.log(allPossibleCombinations(numbers)); // [5, 3, 8, 9] // [image from 0 directory,image from 1 directory, image from 2 directory]
-    let firstPossible = allPossibleCombinations(numbers)[0]
+    //allPossibleCombinations gives last out of index. that's why i put this.
+    numbers.push([0])
+
+    // console.log(allPossibleCombinations(numbers)); // [5, 3, 8, 9] // [image from 0 directory,image from 1 directory, image from 2 directory]
+    // let combinations = allPossibleCombinations(numbers)
+    let combinations = allPossibleCombinations(numbers).map((arr) => {
+        arr.pop();
+        return arr;
+    });
+
+    combinations = multiDimensionalUnique(combinations);
+
+    console.log(combinations)
+
+
     let generateArray = []
+    let row = []
     // let generateArray = allPossibleCombinations(numbers)[0].map
-    for (let i = 0; i < firstPossible.length; i++) {
-        generateArray.push(directoryList[order[i]][firstPossible[i]])
+    for (let i = 0; i < generationNumber; i++) {
+        row = []
+        for (let j = 0; j < order.length; j++) {
+
+            // console.log(directoryList[order[j]][combinations[i][j]])
+            row.push(directoryList[order[j]][combinations[i][j]])
+        }
+        generateArray.push(row)
     }
+
     console.log(generateArray)
-    putImagesToCanvas([...generateArray])
+    for (let i = 0; i < generationNumber; i++) {
+        putImagesToCanvas([...generateArray[i]])
+
+    }
 }
 
 const canvas = document.getElementById("myCanvas"); // Creates a canvas object
 function dlCanvas() {
-    var dt = canvas.toDataURL('image/png');
-
-    downloadQuery([dt])
+    console.log(downloadQuery)
+    queryDownloader([...downloadQuery])
 };
 dl.addEventListener('click', dlCanvas, false);
 
-function downloadQuery(dataURIs) {
+function queryDownloader(dataURIs) {
     var zip = new JSZip();
     for (let i = 0; i < dataURIs.length; i++) {
         var uri = dataURIs[i];
