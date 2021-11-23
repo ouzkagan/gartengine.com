@@ -11,6 +11,8 @@ header.navbar {
   background-color: #181A1B;
   height: 66px;
   align-items: center;
+  padding: 10px 145px 10px 145px;
+
 }
 header.navbar .site-branding {
   height: 100%;
@@ -35,10 +37,32 @@ header.navbar .site-branding img {
   -webkit-box-sizing: border-box !important;
   box-sizing: border-box !important;
   margin-right: 5px;
+  
 }
 .support-btn svg {
   width: 15px;
   margin-right: 5px;
+}
+
+.feedback-btn {
+  color: #fff;
+  background-color: #2b2e2f!important;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: Normal;
+  border: none;
+  padding: 6px 8px;
+  line-height: 27px;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center;
+  font-family: 'Cookie', cursive !important;
+  -webkit-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+  margin-right: 5px;
+}
+.feedback-btn svg{
+  margin-left: 5px;
 }
 /* HERO */
 section#hero {
@@ -150,7 +174,7 @@ transform: rotate(-27.48deg);
   50% {
     left: 13.4vw;
     top: 200px;
-    transform: rotate(0) scale(1.5);
+    transform: rotate(0) scale(2);
     opacity: 0;
   }
   100% {
