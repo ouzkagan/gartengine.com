@@ -319,6 +319,10 @@ input[type="file"] {
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
+}
+.generated-canvas{
+  position:absolute;
 }
 .download-button{
   font-family: Roboto;
@@ -332,8 +336,8 @@ input[type="file"] {
     display: inline-block;
     padding: 6px 12px;
     width: 100%;
-    cursor: pointer;
     text-align: center;
+    cursor: not-allowed;
 }
 @media only screen and (max-width: 1200px) {
   section#hero,#app {

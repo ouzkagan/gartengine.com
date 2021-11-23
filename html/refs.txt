@@ -41,3 +41,6 @@ https://stackoverflow.com/questions/67484579/problem-with-async-await-with-filer
 
 //recursive canvas drawimage
 https://stackoverflow.com/questions/55821099/canvas-drawing-await-for-images-to-load-in-a-recursive-method#
+
+//drawing image in loop techqniue with promises
+https://www.reddit.com/r/javascript/comments/44m0k7/using_drawimage_in_a_for_loop/
