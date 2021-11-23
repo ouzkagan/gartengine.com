@@ -116,7 +116,7 @@ const promiseOfAllCanvas = function (sequence, images) {
             // Load each tile, and "resolve" when done
             return new Promise(function (resolve) {
                 if (document.getElementById(`canvas-id-${sequence}`) === null) {
-                    document.querySelector('.canvas-container').innerHTML += `<canvas class="generated-canvas" style="width: 75%;" id='canvas-id-${sequence}'>`;
+                    document.querySelector('.canvas-container').innerHTML += `<canvas class="generated-canvas" ${document.querySelector('.preview-checkbox').checked === "checked" ? '': 'hidden'} style="width: 75%;" id='canvas-id-${sequence}'>`;
                 }
                 let disposableCanvas = document.getElementById(`canvas-id-${sequence}`);
                 if(index === 0){
@@ -246,8 +246,9 @@ const putImagesToCanvas = async (imageFiles, cb, seq) => {
             if(done === finalGenerationNumber){
                 downloadButton.disabled = false
                 downloadButton.style.cursor = 'pointer';
-                document.querySelector('.completed').innerText = "Completed"
+                document.querySelector('.completed').innerText = "Completed. Downloading..."
                 
+                filesToZip(queryToFiles(downloadQuery))
             }
         })
         .catch(err => console.log(err))
@@ -397,6 +398,23 @@ generateButton.addEventListener('click', (e) => {
 
 
 //seperate this
+function queryToFiles(dataURIs){
+    var zip = new JSZip();
+    for (let i = 0; i < dataURIs.length; i++) {
+        var uri = dataURIs[i];
+        var idx = uri.indexOf('base64,') + 'base64,'.length; // or = 28 if you're sure about the prefix
+        var content = uri.substring(idx);
+        zip.file(`${i}.png`, content, { base64: true });
+    }
+    return zip
+}
+function filesToZip(zip){
+    zip.generateAsync({ type: "blob" })
+        .then(function (content) {
+            // see FileSaver.js
+            saveAs(content, "artwork.zip");
+        });
+}
 function queryDownloader(dataURIs) {
     var zip = new JSZip();
     for (let i = 0; i < dataURIs.length; i++) {
