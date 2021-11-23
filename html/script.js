@@ -46,12 +46,12 @@ function generateDirectoryOrder(directories) {
         order.push(item)
         return `<li class="directory" data-directory="${item}">/${item}</li>`
     }).join('')
-    console.log(order)
+    // console.log(order)
 }
 
 
 function notify(a) {
-    console.log(a)
+    // console.log(a)
 }
 const obj = {
     async drawImages(ctx, images) {
@@ -72,7 +72,7 @@ const obj = {
                     notify(images.length);
                     resolve(this.drawImages(ctx, images));
                 } else {
-                    console.log("I - Processing");
+                    // console.log("I - Processing");
                     // done
                     var hiddenCanvas = document.getElementById("hiddenCanvas");
                     let imgData = hiddenCanvas.toDataURL("image/png"); // Assigns image base64 string in PNG format to a variable
@@ -110,7 +110,7 @@ const promiseOfAllImages = async (tiles) => {
     );
 };
 const promiseOfAllCanvas = function (sequence, images) {
-    console.log(images)
+    // console.log(images)
     return Promise.all(
         images.map(function (image, index) {
             // Load each tile, and "resolve" when done
@@ -125,7 +125,7 @@ const promiseOfAllCanvas = function (sequence, images) {
                 }
                 let ctx = disposableCanvas.getContext("2d");
 
-                console.log(`drawing seq-${sequence} ${image}`)
+                // console.log(`drawing seq-${sequence} ${image}`)
                 ctx.drawImage(image, 0, 0)
                 resolve(disposableCanvas.toDataURL("image/png"))
             });
@@ -144,11 +144,11 @@ const drawImages = async (sequence, images) => {
         let ctx = disposableCanvas.getContext("2d");
 
         if (images.length === order.length) {
-            console.log('first image--take size. seq number:', sequence)
+            // console.log('first image--take size. seq number:', sequence)
             let gImage = new Image(); // Creates image object
             gImage.src = images[0]; // Assigns converted image to image object
             gImage.onload = () => {
-                console.log("setted size of to", disposableCanvas, gImage.width, gImage.height)
+                // console.log("setted size of to", disposableCanvas, gImage.width, gImage.height)
                 disposableCanvas.width = gImage.width; // Assigns image's width to canvas
                 disposableCanvas.height = gImage.height; // Assigns image's width to canvas
             }
@@ -161,14 +161,14 @@ const drawImages = async (sequence, images) => {
         imgToDraw.src = img;
         imgToDraw.onload = () => {
             ctx.drawImage(imgToDraw, 0, 0); // Draws the image on canvas
-            console.log(`Image number ${order.length - images.length} drawed on canvas no canvas-id-${sequence}.`)
+            // console.log(`Image number ${order.length - images.length} drawed on canvas no canvas-id-${sequence}.`)
             if (images.length > 0) {
                 //   console.log(images)
                 // resolve with next iteration so we can await all
                 notify(images.length);
                 resolve(drawImages(sequence, images));
             } else {
-                console.log(`seq number ${sequence} is finishing`);
+                // console.log(`seq number ${sequence} is finishing`);
                 // done
                 let imgData = disposableCanvas.toDataURL("image/png"); // Assigns image base64 string in PNG format to a variable
                 // console.log(imgData)
