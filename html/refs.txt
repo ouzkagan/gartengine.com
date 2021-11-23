@@ -29,3 +29,15 @@ https://educity.app/web-development/how-to-upload-and-draw-an-image-on-html-canv
 
 //download canvas files as zip
 https://github.com/Stuk/jszip/issues/404
+
+//to make draw image async
+https://stackoverflow.com/questions/55821099/canvas-drawing-await-for-images-to-load-in-a-recursive-method
+
+//async reader
+https://stackoverflow.com/questions/9815625/looping-through-files-for-filereader-output-always-contains-last-value-from-loo
+
+//async reader
+https://stackoverflow.com/questions/67484579/problem-with-async-await-with-filereader-in-javascript
+
+//recursive canvas drawimage
+https://stackoverflow.com/questions/55821099/canvas-drawing-await-for-images-to-load-in-a-recursive-method#

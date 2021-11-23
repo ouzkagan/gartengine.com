@@ -207,7 +207,7 @@ transform: rotate(-27.48deg);
   background-color: #181A1B;
   color: #E8E8E8;
   padding: 44px 144px 44px 144px;
-  height: 500px;
+  min-height: 500px;
   gap: 35px;
 }
 .uploader {
@@ -222,6 +222,28 @@ transform: rotate(-27.48deg);
 }
 .uploader ol li {
   margin-bottom: 10px;
+}
+
+.reorder {
+  display: none;
+  padding: 10px 5px;
+}
+.number-input{
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+}
+input[type="number"] {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  padding: 5px;
+  width: 66px;
+  margin-left:15px;
+}
+.directory {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
 }
 
 input[type="file"] {

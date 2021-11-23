@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.css">
 </head>
 <body>
   <header class="navbar">
@@ -68,15 +69,20 @@
   </section>
   <section id="app">
     <div class="uploader">
-      <ol>
+      <ol class="steps">
         <li>Upload your <b>main</b> folder that inclued <b>layers</b> via clicking upload button. (Your selected folder should include your layer folder which includes images)</li>
         <li>Re-order your folders top to bottom.</li>
         <li>Click the generate button and wait for browser to zip your generated images.</li>
       </ol>
-      <div class="reorder" hidden>
-        <div class="sub-directories">
-
-        </div>
+      <div class="reorder">
+        <div>Order the layers from top to bottom. (0 is top)</div>
+        <ol class="sub-directories" start="0" reversed>
+            <!-- <li class="directory">/Layer 0</li>
+            <li class="directory">/Layer 1</li> -->
+          </ol>
+          <label class="number-input">Limit generations: 
+            <input type="number" class="limit-number">
+          </label>
       </div>
       <div class="buttons">
         <label class="custom-file-upload">
@@ -99,12 +105,17 @@
       <canvas id= "hiddenCanvas" style="width: 75%;"></canvas>
 
       </div>
+      <span class="completed"style="display:none">Completed</span>
       <button class="download-button" disabled>Download Files</button>
     </div>
   </section>
   </main>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js" integrity="sha512-xQBQYt9UcgblF6aCMrwU1NkVA7HCXaSN2oq0so80KO+y68M+n64FOcqgav4igHe6D5ObBLIf68DWv+gfBowczg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.js"></script>
   <script src="script.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Cookie&amp;display=swap" rel="stylesheet">
+  
 </body>
 </html>
